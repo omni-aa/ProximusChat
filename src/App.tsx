@@ -5,6 +5,9 @@ import Sidebar from "./components/Sidebar";
 import MessageList from "./components/MessageList";
 import MessageInput from "./components/MessageInput";
 import ZoomedImage from "./components/ZoomedImage";
+import {GiHamburgerMenu} from "react-icons/gi";
+
+
 
 interface Message {
     id?: number | string;
@@ -16,7 +19,7 @@ interface Message {
     timestamp?: string;
 }
 
-const CHANNELS = ["general"];
+const CHANNELS = ["general","FAQ"];
 
 function App() {
     const [username, setUsername] = useState<string | null>(null);
@@ -106,7 +109,7 @@ function App() {
                     className="p-1 rounded hover:bg-[#40444B]"
                     onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                 >
-                    ☰
+                    <GiHamburgerMenu size={30}/>
                 </button>
             </header>
 
@@ -120,6 +123,7 @@ function App() {
                         className="fixed left-0 top-0 bottom-0  bg-[#1e1f22] shadow-lg transform transition-transform  "
                         onClick={e => e.stopPropagation()}
                     >
+
                         <Sidebar
                             channels={CHANNELS}
                             currentChannel={currentChannel}
@@ -143,9 +147,11 @@ function App() {
             </div>
 
             {/* Chat area */}
+
             <div className="flex-1 flex flex-col bg-[#36393F] mt-14 md:mt-0 min-h-0">
                 <header className="hidden md:block bg-[#292B2F] p-4 font-semibold border-b border-[#202225] sticky top-0 z-10">
                     # {currentChannel}
+
                 </header>
 
                 <div className="flex-1 overflow-y-auto">

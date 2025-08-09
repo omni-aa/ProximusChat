@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+
 interface AuthFormProps {
     onAuthSuccess: (token: string, username: string) => void;
 }

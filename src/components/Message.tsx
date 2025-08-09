@@ -20,7 +20,7 @@ export default function Message({ message, onImageZoom }: MessageProps) {
             </div>
 
             <div className="bg-[#2F3136] rounded-lg p-2 md:p-3 max-w-[80%] md:max-w-lg w-fit">
-                <div className="text-blue-400 font-semibold text-sm select-text">
+                <div className="text-blue-300 font-semibold text-sm select-text">
                     {message.user}
                 </div>
                 {message.message && (

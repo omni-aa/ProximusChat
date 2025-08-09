@@ -1,3 +1,5 @@
+import {Avatar, Divider} from "@heroui/react";
+
 
 interface SidebarProps {
     channels: string[];
@@ -16,15 +18,19 @@ export default function Sidebar({
                                 }: SidebarProps) {
     return (
         <aside className="w-60 h-full bg-[#1e1f22] text-[#dbdee1] flex flex-col" >
+
+            <header className={"text-2xl font-bold flex flex-col justify-center items-center bg-blue-700 text-white py-3 px-5"}>PROXIMUS CHAT</header>
             {/* Channels section */}
             <div className="flex-1 overflow-y-auto p-2 py-7">
                 <div className="mb-2">
                     <div className="text-xs font-semibold text-[#949ba4] uppercase px-2 mb-1 ">
                         Text Channels
                     </div>
+                    <Divider className="my-4" />
                     <ul className="space-y-1">
                         {channels.map((channel) => (
                             <li key={channel}>
+
                                 <button
                                     onClick={() => onChannelChange(channel)}
                                     className={`w-full flex items-center px-2 py-1 rounded text-left ${
@@ -47,13 +53,21 @@ export default function Sidebar({
                 <div className="flex items-center justify-between p-1 rounded hover:bg-[#3a3d44] transition-colors ">
                     <div className="flex items-center overflow-hidden ">
                         <div className="relative ">
+
                             <div className="w-8 h-8 rounded-full bg-[#5865f2] flex items-center justify-center text-white font-medium mr-2">
-                                {username.charAt(0).toUpperCase()}
+                                <Avatar size="md" name={username.charAt(0).toUpperCase()}
+                                className="w-8 h-8 rounded-full"
+                                        isBordered color="danger"
+
+                                />
+
                             </div>
-                            <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#23a559] border-2 border-[#232428]"></div>
+
                         </div>
+
                         <div className="overflow-hidden">
                             <div className="text-sm font-semibold text-white truncate">{username}</div>
+
                             <div className="text-xs text-[#b5bac1] truncate">Online</div>
                         </div>
                     </div>
