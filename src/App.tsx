@@ -19,7 +19,7 @@ interface Message {
     timestamp?: string;
 }
 
-const CHANNELS = ["general","FAQ"];
+
 
 function App() {
     const [username, setUsername] = useState<string | null>(null);
@@ -29,6 +29,35 @@ function App() {
     const [socket, setSocket] = useState<Socket | null>(null);
     const [zoomedImage, setZoomedImage] = useState<string | null>(null);
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [channels, setChannels] = useState<string[]>([]);
+
+
+    useEffect(() => {
+        if (!socket) return;
+
+        const onForceLogout = (msg: string) => {
+            alert(msg);
+            setToken(null);
+            setUsername(null);
+            localStorage.removeItem("token");
+            localStorage.removeItem("username");
+            socket.disconnect();
+        };
+
+        socket.on("force_logout", onForceLogout);
+
+        return () => {
+            socket.off("force_logout", onForceLogout);
+        };
+    }, [socket]);
+
+
+    useEffect(() => {
+        fetch("http://localhost:3001/channels")
+            .then(res => res.json())
+            .then(data => setChannels(data))
+            .catch(err => console.error("Error fetching channels:", err));
+    }, []);
 
     // Connect socket with token after login/signup
     useEffect(() => {
@@ -125,7 +154,7 @@ function App() {
                     >
 
                         <Sidebar
-                            channels={CHANNELS}
+                            channels={channels}
                             currentChannel={currentChannel}
                             username={username}
                             onChannelChange={setCurrentChannel}
@@ -138,7 +167,7 @@ function App() {
             {/* Desktop Sidebar */}
             <div className="hidden md:flex">
                 <Sidebar
-                    channels={CHANNELS}
+                    channels={channels}
                     currentChannel={currentChannel}
                     username={username}
                     onChannelChange={setCurrentChannel}
